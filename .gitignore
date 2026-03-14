@@ -1,0 +1,17 @@
+# Node.js (React)
+node_modules/
+frontend/node_modules/
+build/
+.env
+
+# Java (Spring Boot)
+target/
+backend/target/
+*.class
+.mvn/
+help.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
