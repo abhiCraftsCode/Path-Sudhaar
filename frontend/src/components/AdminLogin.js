@@ -24,17 +24,15 @@ const AdminLogin = ({ onLogin }) => {
 
       if (response.ok) {
         const adminData = await response.json();
-        // adminData now contains { id, username, role } exactly from your schema
         console.log("Login Successful:", adminData.username);
         onLogin(adminData);
       } else {
-        // If password@123 doesn't match the DB record
         alert("❌ Access Denied: Incorrect Username or Password.");
       }
     } catch (err) {
       console.error("Login Error:", err);
       alert(
-        "📡 Connection Error: Cannot reach the Backend. Ensure Spring Boot is running and the 'data' folder exists.",
+        "📡 Connection Error: Cannot reach the Backend. Ensure Spring Boot is running and MongoDB service is active.",
       );
     } finally {
       setLoading(false);

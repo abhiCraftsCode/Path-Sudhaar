@@ -15,16 +15,20 @@ public class PathSudhaarApplication {
 		SpringApplication.run(PathSudhaarApplication.class, args);
 	}
 
-	// This runs automatically on startup to ensure you can always log in
 	@Bean
 	CommandLineRunner initDatabase(AdminRepository repository) {
 		return args -> {
+			// Check if the master admin exists in the new MongoDB collection
 			if (repository.findByUsername("master").isEmpty()) {
-				// Creating the Master Admin for NIT Raipur Demo
+				// MongoDB will generate a String ID automatically
 				repository.save(new Admin("master", "master@123", "MASTER"));
+
 				System.out.println("--------------------------------------");
+				System.out.println("🍃 MONGODB INITIALIZED");
 				System.out.println("🚀 MASTER ADMIN 'master' CREATED!");
 				System.out.println("--------------------------------------");
+			} else {
+				System.out.println("✅ Master Admin already exists in MongoDB.");
 			}
 		};
 	}

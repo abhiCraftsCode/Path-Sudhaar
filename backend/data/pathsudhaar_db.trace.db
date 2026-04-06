@@ -364,3 +364,6 @@ Caused by: java.lang.IllegalArgumentException: Near Science College Ground
 2026-03-24 16:50:24.016826+05:30 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "delete [*]* FROM POTHOLE"; expected "identifier"; SQL statement:
 delete * FROM POTHOLE [42001-240]
+2026-04-05 23:45:32.067496+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POTHOLES" not found; SQL statement:
+select * from potholes [42102-240]

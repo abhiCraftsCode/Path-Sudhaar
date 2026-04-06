@@ -1,31 +1,21 @@
 package com.path_sudhaar.backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "admins") // Stores admin credentials in a separate table/collection
+@Document(collection = "admins")
 public class Admin {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
-  @Column(unique = true, nullable = false)
+  @Indexed(unique = true)
   private String username;
 
-  @Column(nullable = false)
   private String password;
-
-  // "MASTER" (can create others) or "SUB_ADMIN" (can only view/delete potholes)
-  @Column(nullable = false)
   private String role;
 
-  // Default Constructor (Required by JPA)
   public Admin() {
   }
 
@@ -38,11 +28,11 @@ public class Admin {
 
   // --- Getters and Setters ---
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -1,18 +1,9 @@
 package com.path_sudhaar.backend.controller;
 
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional; // 1. Added this import
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.path_sudhaar.backend.model.Admin;
 import com.path_sudhaar.backend.repository.AdminRepository;
 
@@ -29,6 +20,8 @@ public class AuthController {
   public ResponseEntity<?> login(@RequestBody Admin loginRequest) {
     Optional<Admin> admin = adminRepository.findByUsername(loginRequest.getUsername());
 
+    // Simple password check (Note: For a real app, use BCrypt, but this works for
+    // demo)
     if (admin.isPresent() && admin.get().getPassword().equals(loginRequest.getPassword())) {
       return ResponseEntity.ok(admin.get());
     }
@@ -46,11 +39,11 @@ public class AuthController {
   }
 
   // --- 3. DELETE ENDPOINT ---
-  @Transactional // 2. Required for custom delete queries in JPA
+  // Removed @Transactional as MongoDB Repository handles deleteByUsername
+  // natively
   @DeleteMapping("/deleteByUsername")
   public ResponseEntity<Void> deleteAdminByUsername(@RequestParam String username) {
     try {
-      // 3. Changed 'repository' to 'adminRepository' to match your @Autowired field
       Optional<Admin> admin = adminRepository.findByUsername(username);
       if (admin.isPresent()) {
         adminRepository.deleteByUsername(username);
