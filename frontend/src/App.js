@@ -44,11 +44,20 @@ function App() {
     const savedAdmin = sessionStorage.getItem("adminUser");
     return savedAdmin ? JSON.parse(savedAdmin) : null;
   });
+  const backendBase =
+    window.location.hostname === "localhost"
+      ? "http://localhost:8081"
+      : /*: window.location.origin.replace("3000", "8081");*/
+        "https://madalene-reciprocative-shawnda.ngrok-free.dev".replace(
+          "3000",
+          "8081",
+        );
 
   const fetchPotholes = async () => {
     try {
-      const res = await fetch("http://192.168.1.6:8081/api/potholes");
+      const res = await fetch(`${backendBase}/api/potholes`);
       const data = await res.json();
+      console.log("Potholes loaded.");
       setPotholes(data);
     } catch (err) {
       console.error("Backend not reachable. Check IP or Spring Boot.");
